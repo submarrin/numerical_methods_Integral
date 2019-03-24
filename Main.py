@@ -28,10 +28,11 @@ def calcError(sumHalfH, sumH, p):
     return (sumHalfH - sumH)/(2**p - 1)
 
 
-def metGauss(func, c, d):
-    def substVar(x, i):
-        return 0.125 * x + 0.125 * (2 * i + 1)
-    return 0.125 * sum([func(substVar(c, i)) + func(substVar(d, i)) for i in range(3)])
+def metGauss(func, c, d, parts_count):
+    parts = range(parts_count-1)
+    def substVar(x, i, parts_count):
+        return 1/(parts_count*2) * x + 1/(parts_count*2) * (2 * i + 1)
+    return 1/(len(parts)*2) * sum([func(substVar(c, i, len(parts))) + func(substVar(d, i, len(parts))) for i in parts])
 
 
 print('Приближенное значение по методу левых прямоугольников ')
@@ -57,4 +58,4 @@ for (n, h) in params :
         print('погрешность для шага {h} = {error_size}'.format(error_size=error_size, h=h))
     prev_value = current_value
 
-print('Метод Гаусса: {result}'.format(result=metGauss(testFunc, x1, x2)))
+print('Метод Гаусса: {result}'.format(result=metGauss(testFunc, x1, x2, 4)))
