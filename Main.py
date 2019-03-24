@@ -5,29 +5,34 @@ b = 1
 x1 = -1/math.sqrt(3)
 x2 = 1/math.sqrt(3)
 
+
 def testFunc(x):
     return math.log(1+x**2)
+
 
 def derivTestFunc(x):
     return (2*x)/(1+x**2)
 
+
 def leftSum(n, h, func):
     return sum([func(a + i*h) for i in range(n-1)]) * h
+
 
 def metEiler(n, h, func, deriv):
     return ((h/2)*(func(a) + func(b)) +
             h*sum([func(a + i*h) for i in range(n-1)]) +
             (h**2)/12*(deriv(a)-deriv(b)))
 
+
 def calcError(sumHalfH, sumH, p):
     return (sumHalfH - sumH)/(2**p - 1)
 
-def metGauss(func, a, b):
-    def substVar(x):
-        return (1 / 2 * x + 1 / 2)
-    def substFunc(x):
-        return 1 / 2 * (func(substVar(x)))
-    return substFunc(a) + substFunc(b)
+
+def metGauss(func, c, d):
+    def substVar(x, i):
+        return 0.125 * x + 0.125 * (2 * i + 1)
+    return 0.125 * sum([func(substVar(c, i)) + func(substVar(d, i)) for i in range(3)])
+
 
 print('Приближенное значение по методу левых прямоугольников ')
 
