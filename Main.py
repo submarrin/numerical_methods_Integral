@@ -31,10 +31,6 @@ def metGauss(func, a, b):
 
 print('Приближенное значение по методу левых прямоугольников ')
 
-# jkhkjhkj
-#
-# ljh
-
 params = [(10, 0.1), (20, 0.05), (40, 0.025)]
 prev_value = None
 for (n, h) in params :
